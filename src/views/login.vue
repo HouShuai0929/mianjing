@@ -34,14 +34,19 @@
 </template>
 
 <script>
+import { login } from "@/api/user";
+import { setToken } from "@/utils/storage";
 export default {
   name: "login-page",
   data() {
     return { username: "", password: "" };
   },
   methods: {
-    onSubmit(values) {
-      console.log("submit", values);
+    async onSubmit(values) {
+      const res = await login(values);
+      setToken(res.data.token);
+      this.$toast.success('登陆成功')
+      this.$router.push("/article");
     },
   },
 };
