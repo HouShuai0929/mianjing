@@ -1,21 +1,15 @@
 <template>
-  <div class="like-page">
-    喜欢
-  </div>
+  <div class="like-page">喜欢</div>
 </template>
 
 <script>
 export default {
-  name: 'like-page',
-  data () {
-    return {
-
-    }
+  name: "like-page",
+  data() {
+    return {};
   },
-  methods: {
-
-  }
-}
+  methods: {},
+};
 </script>
 
 <style lang="less" scoped>

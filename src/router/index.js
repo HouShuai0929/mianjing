@@ -11,7 +11,7 @@ import Collect from "@/views/collect.vue";
 import Like from "@/views/like.vue";
 import User from "@/views/user.vue";
 //获取token
-import { getToken } from '@/utils/storage'
+import { getToken } from "@/utils/storage";
 
 Vue.use(VueRouter);
 
@@ -35,16 +35,15 @@ const routes = [
 const router = new VueRouter({
   routes,
 });
+const wihte_list = ["/login", "/register"];
 router.beforeEach((to, from, next) => {
-  if (to.path === "/login" || to.path === "/register") {
+  const token = getToken();
+  if (token) {
+    next();
+  } else if (wihte_list.includes(to.path)) {
     next();
   } else {
-    const token = getToken()
-    if (token) {
-      next();
-    } else {
-      next("/login");
-    }
+    next("/login");
   }
 });
 export default router;

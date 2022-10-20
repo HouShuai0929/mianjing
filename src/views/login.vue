@@ -45,8 +45,8 @@ export default {
     async onSubmit(values) {
       const res = await login(values);
       setToken(res.data.token);
-      this.$toast.success('登陆成功')
-      this.$router.push("/article");
+      this.$toast.success("登陆成功");
+      this.$router.push("/");
     },
   },
 };

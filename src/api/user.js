@@ -1,13 +1,8 @@
 import request from "@/utils/request";
 
 export const register = (data) => {
- return request.post("/user/register",data
-  // {
-  //   username: obj.username,
-  //   password: obj.password,
-  // }
-  );
+  return request.post("/user/register", data);
 };
 export const login = (data) => {
-  return request.post('/user/login', data)
-}
+  return request.post("/user/login", data);
+};

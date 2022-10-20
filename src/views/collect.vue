@@ -1,21 +1,15 @@
 <template>
-  <div class="collect-page">
-    收藏页面
-  </div>
+  <div class="collect-page">收藏页面</div>
 </template>
 
 <script>
 export default {
-  name: 'collect-page',
-  data () {
-    return {
-
-    }
+  name: "collect-page",
+  data() {
+    return {};
   },
-  methods: {
-
-  }
-}
+  methods: {},
+};
 </script>
 
 <style lang="less" scoped>

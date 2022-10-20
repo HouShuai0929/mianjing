@@ -1,24 +1,16 @@
 <template>
-  <div class="user-page">
-    我的
-  </div>
+  <div class="user-page">我的</div>
 </template>
 
 <script>
 export default {
-  name: 'user-page',
-  data () {
-    return {
-
-    }
+  name: "user-page",
+  data() {
+    return {};
   },
-  async created () {
-
-  },
-  methods: {
-
-  }
-}
+  async created() {},
+  methods: {},
+};
 </script>
 
 <style lang="less" scoped>

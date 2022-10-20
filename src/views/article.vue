@@ -1,21 +1,66 @@
 <template>
   <div class="article-page">
-    面经页面
+    <nav class="my-nav van-hairline--bottom">
+      <a href="javascript:;">推荐</a>
+      <a href="javascript:;">最新</a>
+      <div class="logo"><img src="@/assets/logo.png" alt="" /></div>
+    </nav>
+    <van-list
+      v-model="loading"
+      :finished="finished"
+      @load="onLoad"
+      finished-text="没有更多了"
+    >
+      <ArticleItem
+        v-for="item in list"
+        :key="item.id"
+        :articleItem="item"
+      ></ArticleItem>
+    </van-list>
   </div>
 </template>
 
 <script>
+import { getArticleList } from "@/api/article";
 export default {
-  name: 'article-page',
-  data () {
+  name: "article-page",
+  data() {
     return {
-
-    }
+      list: [],
+      current: 1,
+      sorter: "weight_desc",
+      loading: false,
+      finished: false,
+    };
   },
   methods: {
+    async onLoad() {
+      const res = await getArticleList({
+        current: this.current,
+        sorter: this.sorter,
+      });
 
-  }
-}
+      this.current++;
+      // console.log(this.current);
+      // console.log(res.data.rows);
+      // this.list = this.list.concat(res.data.rows);
+      this.list.push(...res.data.rows);
+      this.loading = false;
+      console.log(this.current);
+      console.log(res.data.pageTotal);
+      if (this.current > res.data.pageTotal) {
+        this.finished = true;
+      }
+    },
+  },
+  // async created() {
+  //   const res = await getArticleList({
+  //     current: this.current,
+  //     sorter: this.sorter,
+  //   });
+  //   this.list = res.data.rows;
+  // },
+};
 </script>
 
 <style lang="less" scoped>
@@ -40,7 +85,7 @@ export default {
       position: relative;
       transition: all 0.3s;
       &::after {
-        content: '';
+        content: "";
         position: absolute;
         left: 50%;
         transform: translateX(-50%);

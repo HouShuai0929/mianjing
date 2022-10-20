@@ -1,4 +1,5 @@
 const token = "hm-vant-mobile-token";
+
 export const getToken = () => {
   return localStorage.getItem(token);
 };

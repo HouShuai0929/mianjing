@@ -1,7 +1,7 @@
 // 引入 axios
 import axios from "axios";
 import { Toast } from "vant";
-
+import { getToken, removeToken } from "@/utils/storage";
 // 创建一个新的axios实例
 const request = axios.create({
   baseURL: "http://interview-api-t.itheima.net/h5/",
@@ -10,11 +10,16 @@ const request = axios.create({
 // 添加请求拦截器
 request.interceptors.request.use(
   function (config) {
+    const token = getToken();
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
     // 在发送请求之前做些什么
     return config;
   },
   function (error) {
     // 对请求错误做些什么
+
     return Promise.reject(error);
   }
 );
@@ -27,7 +32,13 @@ request.interceptors.response.use(
   },
   function (error) {
     // 对响应错误做点什么
-    Toast.fail(error.response.data.message);
+    if (error.response.status === 401) {
+      Toast("登录状态过期,请重新登录!");
+      removeToken();
+      router.push("/login");
+    } else {
+      Toast.fail(error.response.data.message);
+    }
     return Promise.reject(error);
   }
 );
