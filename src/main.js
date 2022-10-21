@@ -11,7 +11,10 @@ import {
   Field,
   Toast,
   Cell,
-  List
+  List,
+  Grid,
+  GridItem,
+  CellGroup,
 } from "vant";
 
 Vue.use(Button);
@@ -24,7 +27,9 @@ Vue.use(Field);
 Vue.use(Toast);
 Vue.use(Cell);
 Vue.use(List);
-
+Vue.use(Grid);
+Vue.use(GridItem);
+Vue.use(CellGroup);
 
 import ArticleItem from "./components/ArticleItem";
 Vue.component("ArticleItem", ArticleItem);

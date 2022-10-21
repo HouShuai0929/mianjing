@@ -1,8 +1,19 @@
 <template>
   <div class="article-page">
     <nav class="my-nav van-hairline--bottom">
-      <a href="javascript:;">推荐</a>
-      <a href="javascript:;">最新</a>
+      <a
+        @click="changeSorter('weight_desc')"
+        :class="{ active: sorter === 'weight_desc' }"
+        href="javascript:;"
+        >推荐</a
+      >
+
+      <a
+        @click="changeSorter(null)"
+        :class="{ active: sorter === null }"
+        href="javascript:;"
+        >最新</a
+      >
       <div class="logo"><img src="@/assets/logo.png" alt="" /></div>
     </nav>
     <van-list
@@ -39,27 +50,22 @@ export default {
         current: this.current,
         sorter: this.sorter,
       });
-
       this.current++;
-      // console.log(this.current);
-      // console.log(res.data.rows);
-      // this.list = this.list.concat(res.data.rows);
       this.list.push(...res.data.rows);
       this.loading = false;
-      console.log(this.current);
-      console.log(res.data.pageTotal);
       if (this.current > res.data.pageTotal) {
         this.finished = true;
       }
     },
+    changeSorter(value) {
+      this.sorter = value; 
+      this.current = 1;
+      this.list = []; 
+      this.finished = false;
+      this.loading = true;
+      this.onLoad();
+    },
   },
-  // async created() {
-  //   const res = await getArticleList({
-  //     current: this.current,
-  //     sorter: this.sorter,
-  //   });
-  //   this.list = res.data.rows;
-  // },
 };
 </script>
 

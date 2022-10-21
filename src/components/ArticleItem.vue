@@ -1,5 +1,5 @@
 <template>
-  <van-cell class="article-item">
+  <van-cell class="article-item" @click="$router.push(`/detail/${articleItem.id}`)">
     <template #title>
       <div class="head">
         <img :src="articleItem.avatar" alt="" />

@@ -15,3 +15,46 @@ export const getArticleList = (obj) => {
     },
   });
 };
+//文章详情页数据
+export const getArticleDetail = (id) => {
+  return request.get("interview/show", {
+    params: {
+      id,
+    },
+  });
+};
+//喜欢和收藏接口
+export const addLike = (id) => {
+  return request.post("interview/opt", {
+    id,
+    optType: 1, // 喜欢
+  });
+};
+
+// 添加收藏文章接口
+export const addCollect = (id) => {
+  return request.post("interview/opt", {
+    id,
+    optType: 2, // 收藏
+  });
+};
+//获取我的收藏接口
+export const getCollectList = (page) => {
+  return request.get("/interview/opt/list", {
+    params: {
+      page: page, // 当前页
+      pageSize: 10, // 可选
+      optType: 2, // 表示收藏
+    },
+  });
+};
+//获取我的喜欢
+export const getLikeList = (page) => {
+  return request.get("/interview/opt/list", {
+    params: {
+      page: page, // 当前页
+      pageSize: 10, // 可选
+      optType: 1, // 表示喜欢
+    },
+  });
+};

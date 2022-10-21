@@ -1,15 +1,72 @@
 <template>
-  <div class="detail-page">文章详情页</div>
+  <div class="detail-page">
+    <van-nav-bar
+      left-text="返回"
+      fixed
+      title="面经详细"
+      @click-left="$router.go(-1)"
+    />
+    <header class="header">
+      <h1>{{ detail.stem }}</h1>
+      <p>
+        {{ detail.createdAt }} | {{ detail.views }} 浏览量 |
+        {{ detail.likeCount }} 点赞数
+      </p>
+      <p>
+        <img :src="detail.avatar" alt="" />
+        <span>{{ detail.creator }}</span>
+      </p>
+    </header>
+    <main class="body" v-html="detail.content"></main>
+    <div class="opt">
+      <van-icon
+        name="like-o"
+        :class="{ active: detail.likeFlag }"
+        @click="addLike"
+      />
+      <van-icon
+        name="star-o"
+        :class="{ active: detail.collectFlag }"
+        @click="addCollect"
+      />
+    </div>
+  </div>
 </template>
 
 <script>
+import { getArticleDetail, addLike, addCollect } from "@/api/article";
 export default {
   name: "detail-page",
   data() {
-    return {};
+    return { detail: {} };
   },
-  async created() {},
-  methods: {},
+  async created() {
+    const res = await getArticleDetail(this.$route.params.id);
+
+    this.detail = res.data;
+  },
+  methods: {
+    async addLike() {
+      await addLike(this.detail.id);
+      this.detail.likeFlag = !this.detail.likeFlag;
+      if (this.detail.likeFlag) {
+        this.$toast.success("点赞成功");
+        this.detail.likeCount++;
+      } else {
+        this.$toast.success("取消点赞");
+        this.detail.likeCount--;
+      }
+    },
+    async addCollect() {
+      await addCollect(this.detail.id);
+      this.detail.collectFlag = !this.detail.collectFlag;
+      if (this.detail.collectFlag) {
+        this.$toast.success("收藏成功");
+      } else {
+        this.$toast.success("取消收藏");
+      }
+    },
+  },
 };
 </script>
 

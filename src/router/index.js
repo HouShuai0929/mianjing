@@ -16,7 +16,7 @@ import { getToken } from "@/utils/storage";
 Vue.use(VueRouter);
 
 const routes = [
-  { path: "/detail", component: Detail },
+  { path: "/detail/:id", component: Detail },
   { path: "/register", component: Register },
   { path: "/login", component: Login },
   {
